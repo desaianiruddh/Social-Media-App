@@ -14,7 +14,7 @@ const generateToken = (user) => {
     {
       id: user.id,
       email: user.email,
-      username: user.username,
+      userName: user.userName,
     },
     SECRET_KEY,
     { expiresIn: '1h' }
@@ -54,7 +54,6 @@ module.exports = {
         createdAt: new Date().toISOString(),
       });
       const res = await newUser.save();
-      console.log(userName);
       const token = generateToken(res);
       return {
         ...res._doc,

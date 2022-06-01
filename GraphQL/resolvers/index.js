@@ -1,11 +1,18 @@
-const postResolver = require('./post');
-const userResolver = require('./user');
+const postsResolver = require('./post');
+const usersResolver = require('./user');
+const commentsResolver = require('./comments');
 
 module.exports = {
   Query: {
-    ...postResolver.Query,
+    ...usersResolver.Query,
+    ...postsResolver.Query,
   },
   Mutation: {
-    ...userResolver.Mutation,
+    ...usersResolver.Mutation,
+    ...postsResolver.Mutation,
+    ...commentsResolver.Mutation,
+  },
+  Subscription: {
+    ...postsResolver.Subscription,
   },
 };
