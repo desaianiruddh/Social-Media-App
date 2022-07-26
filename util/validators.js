@@ -9,7 +9,7 @@ module.exports.validateRegisterInput = (
     errors.userName = 'UserName Must Not Be Empty';
   }
   if (email.trim() === '') {
-    errors.userName = 'Email Must Not Be Empty';
+    errors.email = 'Email Must Not Be Empty';
   } else {
     const emailRegEx =
       /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
@@ -17,8 +17,8 @@ module.exports.validateRegisterInput = (
       errors.email = 'Email must be a valid email address';
     }
   }
-  if (password.trim() === '' || password.length < 6) {
-    errors.userName =
+  if (password.length < 6) {
+    errors.password =
       'Password Must Not Be Empty, At least 6 characters required';
   } else if (password !== confirmPassword) {
     errors.confirmPassword = 'Passwords must match';
@@ -32,7 +32,7 @@ module.exports.validateRegisterInput = (
 module.exports.validateLoginInput = (userName, password) => {
   const errors = {};
   if (userName.trim() === '') {
-    errors.username = 'Username must not be empty';
+    errors.userName = 'Username must not be empty';
   }
   if (password.trim() === '') {
     errors.password = 'Password must not be empty';

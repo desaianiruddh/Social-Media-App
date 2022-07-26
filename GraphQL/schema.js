@@ -12,8 +12,9 @@ exports.typeDefs = gql`
     createdAt: String!
     comments: [Comment]
     likes: [Like]
+    likeCount: Int!
+    commentCount: Int!
   }
-
   type Mutation {
     register(registerInput: RegisterInput!): User!
     login(userName: String!, password: String!): User!
@@ -48,6 +49,6 @@ exports.typeDefs = gql`
     createdAt: String!
   }
   type Subscription {
-    newPost: Post!
+    newPost: Post
   }
 `;
