@@ -1,34 +1,11 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Grid, Transition } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
 import PostCard from '../components/PostCard';
 import PostForm from '../components/PostForm';
-
-const FETCH_POSTS_QUERY = gql`
-  query {
-    getPosts {
-      id
-      body
-      userName
-      createdAt
-      comments {
-        id
-        userName
-        body
-        createdAt
-      }
-      likes {
-        id
-        userName
-        createdAt
-      }
-      likeCount
-      commentCount
-    }
-  }
-`;
+import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 const Home = () => {
   const user = useSelector((state) => state.userData.user);

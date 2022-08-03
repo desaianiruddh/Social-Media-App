@@ -2,12 +2,15 @@ import React from 'react';
 import { Button, Icon, Label, Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 import LikeButton from './LikeButton';
+import DeleteButton from './DeleteButton';
 
-function PostCard({
+const PostCard = ({
   post: { body, createdAt, id, userName, likeCount, commentCount, likes },
-}) {
+}) => {
+  const user = useSelector((state) => state.userData.user);
   return (
     <Card fluid>
       <Card.Content>
@@ -20,7 +23,7 @@ function PostCard({
           {userName}
         </Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
-          {moment(createdAt).fromNow(true)}
+          {moment(createdAt).fromNow(true) + ' ago'}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
@@ -34,9 +37,10 @@ function PostCard({
             {commentCount}
           </Label>
         </Button>
+        {user && user.userName === userName && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>
   );
-}
+};
 
 export default PostCard;
