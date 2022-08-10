@@ -49,5 +49,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy":"https://dry-eyrie-33647.herokuapp.com/"
 }

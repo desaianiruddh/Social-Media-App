@@ -14,7 +14,7 @@ import store from './store';
 import { persistor } from './store';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000',
+  uri: 'https://dry-eyrie-33647.herokuapp.com/',
   credentials: 'same-origin',
 });
 const authLink = setContext(() => {
