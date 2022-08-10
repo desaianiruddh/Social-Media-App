@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from '../util/useForm';
 import { useDispatch } from 'react-redux';
+
+import { useForm } from '../util/useForm';
 import { login } from '../redux/userSlice';
 
-function Login(props) {
-  const dispatch = useDispatch()
+const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const { onChange, onSubmit, values } = useForm(loginUser, {
@@ -17,8 +18,11 @@ function Login(props) {
   const [addUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, result) {
       navigate('/');
-      dispatch(login(result.data.login))
-      localStorage.setItem('userToken',JSON.stringify(result?.data.login.token))
+      dispatch(login(result.data.login));
+      localStorage.setItem(
+        'userToken',
+        JSON.stringify(result?.data.login.token)
+      );
     },
     onError(err) {
       setErrors(err?.graphQLErrors[0]?.extensions.errors);
@@ -67,7 +71,7 @@ function Login(props) {
       )}
     </div>
   );
-}
+};
 
 const LOGIN_USER = gql`
   mutation login($userName: String!, $password: String!) {

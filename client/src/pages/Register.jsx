@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+
 import { useForm } from '../util/useForm';
 
-function Register(props) {
+const Register = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const { onChange, onSubmit, values } = useForm(registerUser, {
@@ -15,8 +16,7 @@ function Register(props) {
   });
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
-      navigate('/');
-      props.history.push('/');
+      navigate('/login');
     },
     onError(err) {
       setErrors(err?.graphQLErrors[0]?.extensions.errors);
@@ -85,7 +85,7 @@ function Register(props) {
       )}
     </div>
   );
-}
+};
 
 const REGISTER_USER = gql`
   mutation register(

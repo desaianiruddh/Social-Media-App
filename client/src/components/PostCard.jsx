@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Label, Card, Image } from 'semantic-ui-react';
+import { Button, Icon, Label, Card, Image, Popup } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -14,10 +14,16 @@ const PostCard = ({
   return (
     <Card fluid>
       <Card.Content>
-        <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+        <Popup
+          content={userName}
+          inverted
+          trigger={
+            <Image
+              floated="right"
+              size="mini"
+              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+            />
+          }
         />
         <Card.Header as={Link} to={`/posts/${id}`}>
           {userName}
@@ -29,14 +35,20 @@ const PostCard = ({
       </Card.Content>
       <Card.Content extra>
         <LikeButton post={{ id, likes, likeCount }} />
-        <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-          <Button color="blue" basic>
-            <Icon name="comments" />
-          </Button>
-          <Label basic color="blue" pointing="left">
-            {commentCount}
-          </Label>
-        </Button>
+        <Popup
+          content="Comment on post"
+          inverted
+          trigger={
+            <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
+              <Button color="blue" basic>
+                <Icon name="comments" />
+              </Button>
+              <Label basic color="blue" pointing="left">
+                {commentCount}
+              </Label>
+            </Button>
+          }
+        />
         {user && user.userName === userName && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>

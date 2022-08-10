@@ -17,7 +17,7 @@ const generateToken = (user) => {
       userName: user.userName,
     },
     SECRET_KEY,
-    { expiresIn: '1h' }
+    { expiresIn: '10d' }
   );
 };
 
@@ -38,11 +38,19 @@ module.exports = {
         throw new UserInputError('Errors', { errors });
       }
       //if user name is already taken
-      const user = await User.findOne({ userName });
-      if (user) {
+      const existUserName = await User.findOne({ userName });
+      const existUserEmail = await User.findOne({ email });
+      if (existUserName) {
         throw new UserInputError('Username is already taken', {
           errors: {
             userName: 'This username is taken',
+          },
+        });
+      }
+      if (existUserEmail) {
+        throw new UserInputError('Email is already registered', {
+          errors: {
+            email: 'This Email is alredy registered',
           },
         });
       }

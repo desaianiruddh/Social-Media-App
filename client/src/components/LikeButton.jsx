@@ -14,8 +14,8 @@ const LikeButton = ({ post: { id, likeCount, likes } }) => {
       setLiked(false);
     }
   }, [likes, user]);
-  const [likePost] = useMutation(LIKE_POST_MUTATION, {
-    variables: { postId: id }
+  const [likePost, { error }] = useMutation(LIKE_POST_MUTATION, {
+    variables: { postId: id },
   });
   const likeButton = user ? (
     liked ? (
@@ -32,6 +32,9 @@ const LikeButton = ({ post: { id, likeCount, likes } }) => {
       <Icon name="heart" />
     </Button>
   );
+  if (error) {
+    error.graphQLErrors[0] && alert(error.graphQLErrors[0].message);
+  }
   return (
     <Button as="div" labelPosition="right" onClick={likePost}>
       {likeButton}
